@@ -37,6 +37,86 @@ arrLi.forEach(elem => {
                 aArr[i].classList.add('external');
             }
         }
+//6.https://learn.javascript.ru/modifying-document#sozdat-kalendar-v-vide-tablitsy
 
+/* Напишите функцию, которая умеет генерировать календарь для заданной пары (месяц, год).
+Календарь должен быть таблицей, где каждый день – это TD. У таблицы должен быть заголовок с названиями дней недели, каждый день – TH.
+Синтаксис: createCalendar(id, year, month).
+Такой вызов должен генерировать текст для календаря месяца month в году year, а затем помещать его внутрь элемента с указанным id.
+Например: createCalendar("cal", 2012, 9) сгенерирует в <div id=„cal“></div> следующий календарь:
+ */
+
+let days = {
+  '1': 'Пн' ,
+  '2': 'Вт' ,
+  '3': 'Ср' ,
+  '4': 'Чт' ,
+  '5': 'Пт' ,
+  '6': 'Сб' ,
+  '7': 'Вс' 
+};
+function daysMonth(date) {
+  let days = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+  return Number(days);
+}
+
+function createCalendar(id, year, month) {
+  let fragment = document.createDocumentFragment();
+  let elem = document.body.querySelector('#'+id);
+  let date = new Date(year, month - 1);
+  let day = date.getDay();
+
+  if (day === 0) { // не забываем что воскресенье это 0
+    day = 7;
+  }
+
+  for (let i = 1; i <= Object.keys(days).length; i++) {
+    if (!fragment.querySelector('tr')) {        //Если tr на первом вызове нет, создадим его
+      let tr = document.createElement('tr');
+      fragment.append(tr);
+    }
+    let th = document.createElement('th');      // Добавим дни недели
+    th.className = 'tHead';
+    th.insertAdjacentText('afterbegin', days[`${i}`]);
+    fragment.lastElementChild.appendChild(th);
+  }
+
+  for (let i = 1; i < day; i++) {
+    if (fragment.lastElementChild.children.length === 7) {        //Если tr на первом вызове нет, создадим его
+      let tr = document.createElement('tr');
+      fragment.append(tr);
+    }
+
+    let td = document.createElement('td');
+    td.innerText = ' ';
+    td.className = 'tD';
+    fragment.lastElementChild.appendChild(td);
+  } 
+
+  for (let i = date.getDate(); i <= daysMonth(date);) {  
+    
+    if (fragment.lastElementChild.children.length === 7) {        //Если tr на первом вызове нет, создадим его
+      let tr = document.createElement('tr');
+      fragment.append(tr);
+    } 
+    let td = document.createElement('td');
+    td.innerText = i++;
+    td.className = 'tD';
+    fragment.lastElementChild.appendChild(td);
+    
+  }
+
+  if (fragment.lastElementChild.children.length != 7) {
+    for (let i = fragment.lastElementChild.children.length; i < 7; i++ ) {
+    let td = document.createElement('td');
+    td.className = 'tD';
+    fragment.lastElementChild.appendChild(td);
+    }
+  }
+
+  elem.appendChild(fragment);
+}
+
+createCalendar('calendar', 2019, 2);
 
 
