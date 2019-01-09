@@ -119,4 +119,9 @@ function createCalendar(id, year, month) {
 
 createCalendar('calendar', 2019, 2);
 
-
+//7. https://learn.javascript.ru/metrics#pomestite-myach-v-tsentr-polya
+let div = document.querySelector('#field');
+let parmsDiv = {width: div.clientWidth, height: div.clientHeight};
+let ball = document.querySelector('#ball');
+let parmsBall = {width: ball.offsetWidth, height: ball.offsetHeight};
+ball.style = `top: ${parmsDiv.height/2 - parmsBall.height/2}px; left: ${parmsDiv.width/2 - parmsBall.width/2}px`;
