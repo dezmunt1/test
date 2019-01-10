@@ -125,3 +125,18 @@ let parmsDiv = {width: div.clientWidth, height: div.clientHeight};
 let ball = document.querySelector('#ball');
 let parmsBall = {width: ball.offsetWidth, height: ball.offsetHeight};
 ball.style = `top: ${parmsDiv.height/2 - parmsBall.height/2}px; left: ${parmsDiv.width/2 - parmsBall.width/2}px`;
+
+// 8.https://learn.javascript.ru/coordinates-document#oblast-vidimosti-dlya-dokumenta
+function getDocumentScroll() {
+    let obj = document.body.getBoundingClientRect();
+    let scrollHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight);
+
+    return {
+        top: pageYOffset,
+        bottom: pageYOffset + document.documentElement.clientHeight,
+        height: scrollHeight
+    }
+}
