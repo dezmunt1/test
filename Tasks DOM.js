@@ -140,3 +140,44 @@ function getDocumentScroll() {
         height: scrollHeight
     }
 }
+
+// 9. https://learn.javascript.ru/obtaining-event-object#peredvigat-myach-po-polyu
+let field = document.querySelector('#field');
+    let ball = document.querySelector('#ball');
+
+    field.addEventListener('click', function(event) {
+      let fieldParams = field.getBoundingClientRect();
+      let ballParams = ball.getBoundingClientRect();
+
+      let fieldCoords = {
+        top: fieldParams.top + field.clientTop,
+        left: fieldParams.left + field.clientLeft
+      };
+
+      let ballCoords = {
+        top: event.clientY - fieldCoords.top - ball.clientWidth/2 ,
+        left: event.clientX - fieldCoords.left - ball.clientWidth/2
+      };
+  
+       
+      console.log(ball.style.top, ballCoords.top, field.clientHeight);
+      ball.style.top = ballCoords.top + 'px';
+      ball.style.left = ballCoords.left + 'px';
+
+      if (ballCoords.top < 0) {
+          ball.style.top = 0;
+      }
+
+      if (ballCoords.left < field.clientLeft) {
+          ball.style.left = 0;
+      }
+      
+      if (ballCoords.left + ball.clientWidth > field.clientWidth) {
+          ball.style.left =  field.clientWidth - ball.clientWidth + 'px';
+      }
+
+      if (ballCoords.top + ball.clientHeight > field.clientHeight)  {
+          ball.style.top =  field.clientHeight - ball.clientHeight + 'px';
+      }
+
+    });
