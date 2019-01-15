@@ -38,4 +38,19 @@ function makeBuffer() {
 }
 
 //4. https://learn.javascript.ru/task/make-army
+function makeArmy() {
+    
+      var shooters = [];
+    
+      for (var i = 0; i < 10; i++) {
+        function record(i) {
+          let shooter = function() { // функция-стрелок
+            alert(i); // выводит свой номер
+          };
+          shooters.push(shooter);
+        }
+        record(i); 
+      }
+      return shooters;
+    }
 
