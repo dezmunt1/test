@@ -8,4 +8,25 @@ let closeTab = document.querySelector('#main');
       }
     })
 // 2. https://learn.javascript.ru/event-delegation#raskryvayuscheesya-derevo
+let tree = document.querySelector('.tree');
 
+let allLi = tree.querySelectorAll('li'); // Обернём в SPAN Каждый элемент li
+for (let i = 0; i < allLi.length; i++) {
+    let li = allLi[i];
+    let span = document.createElement('span');
+    li.insertBefore(span, li.firstChild);
+    span.appendChild(span.nextSibling);
+}
+
+
+tree.addEventListener('click', event => {
+    let target = event.target;
+
+    if (target.nextSibling.children) {
+        if (target.nextSibling.hidden === true) {
+            target.nextSibling.hidden = false;
+            return;
+        }
+        target.nextSibling.hidden = true;
+    }
+});
