@@ -1,1 +1,11 @@
 // 1. https://learn.javascript.ru/event-delegation#skrytie-soobscheniya-s-pomoschyu-delegirovaniya
+let closeTab = document.querySelector('#main');
+    closeTab.addEventListener('click', (event) => {
+      let target = event.target;
+      
+      if (target.matches('.remove-button')) {
+        target.parentNode.hidden = true;
+      }
+    })
+// 2. https://learn.javascript.ru/event-delegation#raskryvayuscheesya-derevo
+
