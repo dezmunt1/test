@@ -30,3 +30,78 @@ tree.addEventListener('click', event => {
         target.nextSibling.hidden = true;
     }
 });
+
+
+// 3. https://learn.javascript.ru/behavior#povedenie-podskazka
+document.addEventListener('mouseover', (event) => {
+    let target = event.target;
+    let button = target.getAttribute('data-tooltip');
+    if (!button) return;
+
+    let div = document.createElement('div');
+    div.innerHTML = button;
+    div.classList = 'hint';
+    target.insertAdjacentElement('beforeBegin', div);
+
+    let coords = target.getBoundingClientRect();
+
+    let left = coords.left + (target.offsetWidth/2 - div.offsetWidth/2);
+    div.style.left = left + 'px';
+
+    let top = coords.top - div.offsetHeight - 5;
+    div.style.top = top + 'px';
+
+    if (left < 0) div.style.left = '0px';
+    if (top < 0) div.style.top = (coords.top + target.offsetHeight + 5) + 'px';
+    
+
+
+});
+
+document.addEventListener('mouseout', (event) => {
+    let target = event.target;
+    let button = target.getAttribute('data-tooltip');
+    if (!button) return;
+    let div = document.querySelector('.hint');
+    div.parentNode.removeChild(div);
+
+});
+
+// 4. https://learn.javascript.ru/default-browser-action#poymayte-perehod-po-ssylke
+contents.addEventListener('click', event => {
+      let target = event.target;
+      while (target !== this) {
+        if (target.tagName == 'A') {
+          let href = target.getAttribute('href');
+          return confirmed(href);
+        }
+        target = target.parentNode;
+      }
+
+      function confirmed(href) {
+        let link = confirm(`Перейти по внешней ссылке ${href} ?`);
+        if (!link) {
+          event.preventDefault();
+        }
+      }
+    });
+    
+ // 5. https://learn.javascript.ru/default-browser-action#galereya-izobrazheniy
+ thumbs.addEventListener('click', event => {
+      let target = event.target;
+      while (target !== this) {
+        if (target.tagName == 'A') {
+          let href = target.getAttribute('href');
+          return replaceHref(href);
+        }
+        target = target.parentNode;
+      }
+
+      function replaceHref(href) {
+        if (href) {
+          largeImg.src = href;
+    
+        }
+      event.preventDefault();
+      }
+    });
