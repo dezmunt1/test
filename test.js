@@ -9,7 +9,7 @@ let inf = {
 const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://api.partner.market.yandex.ru/v2/regions/213.json');
-xhr.setRequestHeader('Authorization', `OAuth oauth_token="${inf.token}", oauth_client_id="${inf.id}"`);
+xhr.setRequestHeader('Authorization: OAuth oauth_token="${inf.token}", oauth_client_id="${inf.id}"`);
 xhr.setRequestHeader('Content-Type', 'application/json');
 
 
